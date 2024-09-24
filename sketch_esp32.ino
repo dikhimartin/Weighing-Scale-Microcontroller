@@ -19,14 +19,27 @@ String processScaleData(String rawData) {
     // Ubah titik menjadi koma
     rawData.replace(".", ",");
 
-    // Hapus angka nol di depan
-    while (rawData[0] == '0' && rawData.length() > 1) {
-      rawData = rawData.substring(1);
+    // Cek jika data negatif
+    bool isNegative = rawData.startsWith("-");
+    
+    // Jika negatif, hapus sementara tanda minus untuk pemrosesan
+    if (isNegative) {
+      rawData = rawData.substring(1); // Hapus tanda minus sementara
+    }
+
+    // Hapus leading zero, kecuali jika nol diikuti oleh koma (misalnya, "0,25")
+    while (rawData.length() > 1 && rawData[0] == '0' && rawData[1] != ',') {
+      rawData = rawData.substring(1);  // Hapus nol yang tidak diperlukan
     }
 
     // Tambahkan '0' jika angka pertama adalah koma
     if (rawData[0] == ',') {
       rawData = "0" + rawData;
+    }
+
+    // Jika awalnya negatif, tambahkan kembali tanda minus
+    if (isNegative) {
+      return "-" + rawData;
     }
 
     return rawData;
