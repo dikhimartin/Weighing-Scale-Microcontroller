@@ -22,13 +22,6 @@ The repository is structured to provide two main solutions:
 
 ---
 
-## **Branches**
-
-- **`Arduino`**: Contains the Arduino code for the project.
-- **`NodeMCU ESP32`**: Contains the NodeMCU ESP32 code.
-
----
-
 ## **Hardware Requirements**
 
 - **NodeMCU ESP32** or **Arduino**
