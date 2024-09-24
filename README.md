@@ -52,6 +52,32 @@ Follow the wiring diagram based on the microcontroller you're using. The main co
 ### Arduino Code
 The Arduino code reads the weight data from the scale via RS232 and processes it for display on the Serial Monitor. It uses libraries for serial communication and data parsing.
 
+```cpp
+#include <AltSoftSerial.h>
+#include <SoftwareSerial.h>
+
+// Timbangan menggunakan SoftwareSerial pada Pin 10 dan 11
+SoftwareSerial weighingScale(10, 11);
+
+// HC-06 menggunakan AltSoftSerial pada Pin 8 dan 9
+AltSoftSerial bluetooth; // RX Pin 8, TX Pin 9
+
+void setup() {
+  Serial.begin(9600);           // Serial monitor
+  weighingScale.begin(9600);    // Baud rate untuk timbangan
+  bluetooth.begin(9600);        // Baud rate untuk HC-06
+}
+
+void loop() {
+  if (weighingScale.available()) {
+    char dataFromScale = weighingScale.read(); // Membaca data dari timbangan
+    
+    Serial.write(dataFromScale);               // Menampilkan di serial monitor
+    bluetooth.write(dataFromScale);            // Mengirim data ke HC-06
+  }
+}
+```
+
 ### NodeMCU ESP32 Code
 The NodeMCU ESP32 code reads data from the weighing scale, processes the raw data to remove extraneous characters, and sends the formatted data to a connected smartphone via Bluetooth. The data can be viewed in real-time using a **Bluetooth Serial Terminal** app.
 
