@@ -53,8 +53,8 @@ void setup() {
   weighingScale.begin(9600, SERIAL_8N1, 16, 17); // RX = GPIO16, TX = GPIO17
   
   // Inisialisasi Bluetooth
-  ESP_BT.begin("TimbanganESP32"); // Nama Bluetooth yang muncul di smartphone
-  Serial.println("Bluetooth Started! Pair device with 'TimbanganESP32'");
+  ESP_BT.begin("Paradigm Scale V1"); // Nama Bluetooth yang muncul di smartphone
+  Serial.println("Bluetooth Started! Pair device with 'Paradigm Scale V1'");
 }
 
 void loop() {
