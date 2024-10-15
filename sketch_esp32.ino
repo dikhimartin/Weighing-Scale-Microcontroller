@@ -75,11 +75,11 @@ void loop() {
       
       // Jika data valid setelah proses
       if (processedData != "") {
-        // Tampilkan di serial monitor
-        Serial.println(processedData);
+        // Tampilkan di serial monitor tanpa newline
+        Serial.print(processedData);
         
-        // Kirim data ke Bluetooth
-        ESP_BT.println(processedData);
+        // Kirim data ke Bluetooth tanpa newline
+        ESP_BT.print(processedData);
       }
       
       // Reset buffer setelah data diproses
