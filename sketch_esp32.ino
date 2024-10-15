@@ -7,6 +7,9 @@ BluetoothSerial ESP_BT;
 // Menggunakan UART2 pada GPIO16 (RX) dan GPIO17 (TX)
 HardwareSerial weighingScale(2);
 
+// Buffer untuk menyimpan data dari timbangan
+String scaleData = "";
+
 // Fungsi untuk memproses data dari timbangan
 String processScaleData(String rawData) {
   // Cek apakah data dimulai dengan "wn"
@@ -58,18 +61,18 @@ void setup() {
 }
 
 void loop() {
-  // Buffer untuk membaca data dari timbangan
-  static String scaleData = "";
-
-  // Baca data dari timbangan
-  while (weighingScale.available()) {
+  // Cek apakah ada data yang tersedia dari timbangan
+  if (weighingScale.available()) {
     char incomingByte = weighingScale.read();
+    
+    // Menambahkan karakter yang diterima ke buffer
+    scaleData += incomingByte;
     
     // Memastikan bahwa data lengkap sudah diterima (hingga newline '\n')
     if (incomingByte == '\n') {
       // Proses data dari timbangan
       String processedData = processScaleData(scaleData);
-
+      
       // Jika data valid setelah proses
       if (processedData != "") {
         // Tampilkan di serial monitor
@@ -81,9 +84,9 @@ void loop() {
       
       // Reset buffer setelah data diproses
       scaleData = "";
-    } else {
-      // Menambahkan karakter yang diterima ke buffer
-      scaleData += incomingByte;
     }
   }
+  
+  // Tambahkan sedikit delay untuk mencegah penggunaan CPU berlebih
+  delay(10);
 }
