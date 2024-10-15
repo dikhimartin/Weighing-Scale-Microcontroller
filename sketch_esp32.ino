@@ -86,7 +86,4 @@ void loop() {
       scaleData = "";
     }
   }
-  
-  // Tambahkan sedikit delay untuk mencegah penggunaan CPU berlebih
-  delay(10);
 }
